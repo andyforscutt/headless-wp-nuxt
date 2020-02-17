@@ -117,10 +117,15 @@ export default {
   grid-column-gap: 6vw;
   margin: 5em auto;
   max-width: 80vw;
+
+  @media (max-width: 800px) {
+    display: block;
+  }
 }
 
 main {
   grid-area: 1 / 1 / 2 / 2;
+  margin-bottom: 30px;
 }
 
 aside {

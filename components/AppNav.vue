@@ -2,9 +2,7 @@
   <div class="nav">
     <ul>
       <li>
-        <nuxt-link exact to="/">
-          <app-icon></app-icon>BlogName
-        </nuxt-link>
+        <nuxt-link exact to="/"> <app-icon></app-icon>BlogName </nuxt-link>
       </li>
       <li>
         <nuxt-link to="/about">About</nuxt-link>
@@ -35,6 +33,10 @@ export default {
     &:hover {
       opacity: 1;
     }
+  }
+
+  @media (max-width: 800px) {
+    padding: 20px;
   }
 }
 
