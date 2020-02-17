@@ -1,4 +1,4 @@
-const siteURL = "https://www.medialounge.co.uk/";
+const siteURL = "https://www.medialounge.co.uk";
 
 export const state = () => ({
   posts: [],
