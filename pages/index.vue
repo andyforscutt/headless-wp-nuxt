@@ -5,13 +5,33 @@
       <main>
         <div class="post" v-for="post in sortedPosts" :key="post.id">
           <h3>
-            <a :href="`blog/${post.slug}`">{{ post.title.rendered }}</a>
+            <a :href="`blog/${post.slug}`" v-html="post.title.rendered">{{
+              post.title.rendered
+            }}</a>
           </h3>
           <small>{{ post.date | dateformat }}</small>
           <div v-html="post.excerpt.rendered"></div>
           <a :href="`blog/${post.slug}`" class="readmore slide">Read more ⟶</a>
         </div>
       </main>
+
+      <aside>
+        <h2 class="tags-title">Categories</h2>
+        <div class="tags-list">
+          <ul>
+            <li
+              @click="updateCat(cat)"
+              v-for="cat in cats"
+              :key="cat.id"
+              :class="[cat.id === selectedCat ? activeClass : '']"
+            >
+              <a>{{ cat.name }}</a>
+              <span v-if="cat.id === selectedCat">✕</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
       <aside>
         <h2 class="tags-title">Tags</h2>
         <div class="tags-list">
@@ -42,6 +62,7 @@ export default {
   data() {
     return {
       selectedTag: null,
+      selectedCat: null,
       activeClass: "active"
     };
   },
@@ -52,20 +73,36 @@ export default {
     tags() {
       return this.$store.state.tags;
     },
+    cats() {
+      return this.$store.state.cats;
+    },
+    // sortedPosts() {
+    //   if (!this.selectedTag) return this.posts;
+    //   return this.posts.filter(el => el.tags.includes(this.selectedTag));
+    // }
     sortedPosts() {
-      if (!this.selectedTag) return this.posts;
-      return this.posts.filter(el => el.tags.includes(this.selectedTag));
+      if (!this.selectedCat) return this.posts;
+      return this.posts.filter(el => el.cats.includes(this.selectedCat));
     }
   },
   created() {
     this.$store.dispatch("getPosts");
   },
+  // methods: {
+  //   updateTag(tag) {
+  //     if (!this.selectedTag) {
+  //       this.selectedTag = tag.id;
+  //     } else {
+  //       this.selectedTag = null;
+  //     }
+  //   }
+  // }
   methods: {
-    updateTag(tag) {
-      if (!this.selectedTag) {
-        this.selectedTag = tag.id;
+    updateCat(cat) {
+      if (!this.selectedCat) {
+        this.selectedCat = cat.id;
       } else {
-        this.selectedTag = null;
+        this.selectedCat = null;
       }
     }
   }
