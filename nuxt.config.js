@@ -1,13 +1,11 @@
-import axios from "axios"
+import axios from "axios";
 let dynamicRoutes = () => {
-  const routes = axios
+  return axios
     .get("https://css-tricks.com/wp-json/wp/v2/posts?page=1&per_page=20")
     .then(res => {
-      return res.data.map(post => `/blog/${post.slug}`)
-    })
-  console.log(routes)
-  return routes
-}
+      return res.data.map(post => `/blog/${post.slug}`);
+    });
+};
 
 export default {
   mode: "universal",
@@ -66,4 +64,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-}
+};
